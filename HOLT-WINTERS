@@ -1,0 +1,16 @@
+from statsmodels.tsa.holtwinters import ExponentialSmoothing
+
+# Preparando os dados para o modelo Holt-Winters
+# Utilizaremos os dados de atendimento individual
+y_holt_atendimento = grouped_data['Atendimento Individual']
+
+# Criando e treinando o modelo Holt-Winters para atendimento individual
+model_holt_atendimento = ExponentialSmoothing(y_holt_atendimento, trend='add', seasonal='add', seasonal_periods=12).fit()
+
+# Fazendo previsões para atendimento individual em 2024
+previsoes_holt_atendimento = model_holt_atendimento.forecast(12)
+
+# Preparando os resultados para exibição
+previsoes_holt_2024_atendimento = pd.DataFrame({'Mês': range(1, 13), 'Previsões Atendimento': previsoes_holt_atendimento})
+
+previsoes_holt_2024_atendimento
