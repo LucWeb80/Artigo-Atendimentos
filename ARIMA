@@ -1,0 +1,23 @@
+from statsmodels.tsa.arima.model import ARIMA
+import warnings
+
+# Desabilitando avisos para evitar mensagens desnecessárias durante a modelagem
+warnings.filterwarnings("ignore")
+
+# Preparando os dados de atendimento individual e visita domiciliar
+# O ARIMA requer uma série temporal contínua, portanto, usaremos os dados mensais agregados
+data_atendimento = grouped_data['Atendimento Individual']
+
+# Modelando com ARIMA
+# Como os dados são mensais, podemos começar com uma configuração sazonal (s=12)
+model_arima_atendimento = ARIMA(data_atendimento, order=(1,1,1), seasonal_order=(1,1,1,12)).fit()
+
+# Gerando previsões para 2024
+previsoes_atendimento_2024 = model_arima_atendimento.forecast(steps=12)
+
+# Preparando o resultado final
+previsoes_arima_2024 = pd.DataFrame({
+    'Mês': range(1, 13),
+    'Previsão Atendimento Individual (ARIMA)': previsoes_atendimento_2024,
+})
+previsoes_arima_2024
