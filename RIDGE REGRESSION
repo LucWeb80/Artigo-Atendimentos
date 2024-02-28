@@ -1,0 +1,15 @@
+# Treinando um modelo somente com Ridge Regression
+ridge_model_atendimento = Ridge(random_state=42)
+
+# Treinando os modelos
+ridge_model_atendimento.fit(X_ensemble, y_atendimento_ensemble)
+
+# Gerando previsões com Ridge Regression para 2024
+previsoes_atendimento_ridge = ridge_model_atendimento.predict(np.array(dias_2024).reshape(-1, 1))
+
+# Resultados com Ridge Regression
+previsoes_ridge_2024 = pd.DataFrame({
+    'Mês': range(1, 13),
+    'Previsão Atendimento Individual (Ridge)': previsoes_atendimento_ridge,
+})
+previsoes_ridge_2024
