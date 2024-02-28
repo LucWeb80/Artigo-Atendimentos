@@ -1,0 +1,28 @@
+from statsmodels.tsa.statespace.sarimax import SARIMAX
+
+# Preparando os dados para o modelo SARIMA
+# Usaremos os dados de atendimento individual como exemplo
+y_sarima = grouped_data['Atendimento Individual']
+
+# Definindo os parâmetros do modelo SARIMA
+# Estes parâmetros podem precisar ser ajustados com base na análise dos dados
+order = (1, 1, 1)  # Ordem do componente ARIMA (p, d, q)
+seasonal_order = (1, 1, 1, 12)  # Ordem sazonal (P, D, Q, S)
+
+# Criando e treinando o modelo SARIMA
+model_sarima_atendimento = SARIMAX(y_sarima, order=order, seasonal_order=seasonal_order, enforce_stationarity=False, enforce_invertibility=False)
+model_sarima_atendimento_fit = model_sarima_atendimento.fit(disp=False)
+
+# Fazendo previsões para 2024
+previsoes_sarima_atendimento = model_sarima_atendimento_fit.get_forecast(steps=12)
+previsoes_sarima_atendimento_conf = previsoes_sarima_atendimento.conf_int()
+previsoes_sarima_atendimento_predicted = previsoes_sarima_atendimento.predicted_mean
+
+# Preparando o resultado para exibição
+previsoes_sarima_2024_atendimento = pd.DataFrame({
+    'Mês': range(1, 13),
+    'Previsões Atendimento': previsoes_sarima_atendimento_predicted,
+    'Limite Inferior': previsoes_sarima_atendimento_conf.iloc[:, 0],
+    'Limite Superior': previsoes_sarima_atendimento_conf.iloc[:, 1]
+})
+previsoes_sarima_2024_atendimento
