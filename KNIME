@@ -1,0 +1,11 @@
+Guia para uso do KNIME neste estudo:
+1. Preparação e Carregamento dos Dados: File Reader/File Input Nodes: Para carregar os dados históricos de atendimentos individuais e visitas domiciliares; Column Filter: Para selecionar as colunas relevantes (data, número de atendimentos/visitas, etc.).
+2. Pré-processamento dos Dados: Missing Value: Para lidar com valores ausentes nos dados; Date&Time-based Row Filter: Para filtrar os dados com base no período de interesse; Normalizer: Para normalizar os dados, se necessário; Lag Column: Para criar colunas de atraso (lag features), úteis em análises de séries temporais.
+3. Análise Exploratória: Data Explorer: Para visualização e exploração inicial dos dados; Linear Correlation: Para verificar correlações entre variáveis;
+4. Construção do Modelo de Previsão: ARIMA/SARIMA Nodes: Se disponíveis em plugins ou R/Python Scripting Nodes para aplicar estes modelos; Learner Nodes (e.g., Decision Tree Learner, Random Forest Learner, etc.): Para outros modelos de aprendizado de máquina; Partitioning: Para dividir os dados em conjuntos de treino e teste.
+5. Treinamento do Modelo: R/Python Scripting Nodes: Para executar scripts personalizados de ARIMA/SARIMA ou outros modelos; Learner Nodes: Para treinar o modelo escolhido.
+6. Validação do Modelo: Scorer ou Predictor Nodes: Para avaliar o desempenho do modelo nos dados de teste; Validation (e.g., Cross Validation): Para validação cruzada do modelo.
+7. Previsão para 2024: Time Series Predictor: Para realizar previsões para o ano de 2024; R/Python Scripting Nodes: Para previsões personalizadas, especialmente se estiver utilizando ARIMA/SARIMA.
+8. Análise dos Resultados: Line Plot: Para visualizar as previsões; Data to Report: Para criar um relatório dos resultados.
+9. Exportação dos Resultados: Excel Writer/CSV Writer: Para exportar os resultados finais para um arquivo Excel ou CSV.
+Ao configurar cada nó, é necessário ajustar os parâmetros conforme necessário para refletir as especificidades dos seus dados e objetivos. O processo iterativo de ajuste e validação é crucial para garantir que o modelo seja confiável e útil para previsões.
