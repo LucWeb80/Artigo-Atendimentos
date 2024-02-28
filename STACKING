@@ -1,0 +1,30 @@
+from sklearn.ensemble import StackingRegressor
+from sklearn.linear_model import Ridge
+from sklearn.tree import DecisionTreeRegressor
+
+# Definindo os modelos base para o Stacking
+base_models = [
+    ('rf', RandomForestRegressor(n_estimators=100, random_state=42)),
+    ('gb', GradientBoostingRegressor(n_estimators=100, random_state=42)),
+    ('ridge', Ridge(random_state=42))
+]
+
+# Modelo final a ser usado no Stacking
+final_model = Ridge(random_state=42)
+
+# Criando o modelo de Stacking
+model_stacking_atendimento = StackingRegressor(estimators=base_models, final_estimator=final_model)
+
+
+# Treinando os modelos de Stacking
+model_stacking_atendimento.fit(X_ensemble, y_atendimento_ensemble)
+
+# Gerando previsões com Stacking para 2024
+previsoes_atendimento_stacking = model_stacking_atendimento.predict(np.array(dias_2024).reshape(-1, 1))
+
+# Resultados com Stacking
+previsoes_stacking_2024 = pd.DataFrame({
+    'Mês': range(1, 13),
+    'Previsão Atendimento Individual (Stacking)': previsoes_atendimento_stacking,
+})
+previsoes_stacking_2024
