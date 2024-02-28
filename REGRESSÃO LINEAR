@@ -1,0 +1,26 @@
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+import numpy as np
+
+# Preparando os dados para a modelagem
+# Criamos um novo DataFrame com colunas para ano, mês e atendimentos individuais
+model_data = pd.DataFrame({
+    'Ano': [ano for ano, mes in grouped_data.index],
+    'Mês': [mes for ano, mes in grouped_data.index],
+    'Atendimento Individual': grouped_data['Atendimento Individual'],
+})
+
+# Criamos variáveis independentes (X) e dependentes (y)
+X = model_data[['Ano', 'Mês']]
+y_atendimento = model_data['Atendimento Individual']
+
+# Construímos dois modelos de regressão linear, um para cada tipo de atendimento
+model_atendimento = LinearRegression().fit(X, y_atendimento)
+
+# Gerando previsões para cada mês de 2024
+previsoes_2024 = pd.DataFrame({'Ano': 2024, 'Mês': range(1, 13)})
+previsoes_atendimento = model_atendimento.predict(previsoes_2024)
+
+# Combinando as previsões em um único DataFrame para apresentação
+previsoes_2024['Previsão Atendimento Individual'] = previsoes_atendimento
+previsoes_2024
